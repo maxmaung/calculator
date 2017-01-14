@@ -4,11 +4,11 @@ var inputOne = "";
 var inputTwo = "";
 var operator = "";
 var result = "";
+var operatorWasClicked = false;
 
 $(".clear").on('click', function(){
-$(".screen").empty()
-
-    });
+      $(".screen").empty()
+});
 
 
     $(".number").on('click',function(){
@@ -18,25 +18,50 @@ $(".screen").empty()
         $(".screen").append(currentNumber)
 
 
-        if (operator === "+"){
+        if (operatorWasClicked === true){
 
           $(".screen").empty()
 
-          var newNumber = $(this).text()
+        var newNumber = $(this).text()
 
-          $(".screen").append(newNumber)
+          operatorWasClicked = false
+
+        $(".screen").append(newNumber)
+
+
+      } else if (operatorWasClicked === true){
+
+          $(".screen").empty()
+
+        var newNumber = $(this).text()
+
+        operatorWasClicked = false
+
+        $(".screen").append(newNumber)
+
 
         }
 
-    });
+
+  });
 
     $(".add").on('click', function(){
         inputOne = $(".screen").text()
         inputOne = parseInt(inputOne)
         operator = $(this).text()
         console.log(operator)
+        operatorWasClicked = true
 
     });
+
+    $(".minus").on('click', function(){
+        inputOne = $(".screen").text()
+        inputOne = parseInt(inputOne)
+        operator = $(this).text()
+        console.log(operator)
+        operatorWasClicked = true
+    });
+
 
 
     $(".equal").on('click', function(){
@@ -44,17 +69,20 @@ $(".screen").empty()
           inputTwo = $(".screen").text()
           inputTwo = parseInt(inputTwo)
 
-          if(operator === "+") {
-            $(".screen").empty()
+          $(".screen").empty()
+
+
+          if (operator === "+"){
+              result = inputOne + inputTwo
+          }else if (operator === "-"){
+              result = inputOne - inputTwo
           }
+
+          $('.screen').append(result)
 
           operator = ""
           console.log(operator)
 
-          result = inputOne + inputTwo
-          $('.screen').append(result)
-
     })
-
 
 });
